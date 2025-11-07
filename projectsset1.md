@@ -69,3 +69,14 @@ const BMI = (weight/((height*height)/1000)).toFixed(2)
 })
 
 ```
+## Project 3
+```javascript
+//both are same
+const clock = document.getElementById('clock');
+//const clock = document.querySelector('#clock');
+setInterval(function(){
+  let date = new Date()
+  //console.log(date.toLocaleTimeString())
+  clock.innerHTML = date.toLocaleTimeString();
+},1000)//time at change in 1 second
+```

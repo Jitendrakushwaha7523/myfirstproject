@@ -80,3 +80,90 @@ setInterval(function(){
   clock.innerHTML = date.toLocaleTimeString();
 },1000)//time at change in 1 second
 ```
+## Project 4
+```javascript
+let randomNu = (parseInt(Math.random()*10+1));
+const submit = document.querySelector('#subt');
+const userInput = document.querySelector('#guessField');
+const guessSlot = document.querySelector('.guesses');const remaining = document.querySelector('.lastResult');
+const lowOrhigh = document.querySelector('.lowOrHi');
+const startOver = document.querySelector('.resultParas');
+const p = document.createElement('p');
+let preguess = []
+let Nuguess = 1
+let playGame = true
+if(playGame){
+  submit.addEventListener('click', function(e){
+    e.preventDefault();
+    const guess = parseInt(userInput.value);
+    console.log(guess);
+   validateGuess(guess);
+  });
+}
+function validateGuess(guess){
+if(isNaN(guess)){
+alert("please enter a valid value-");
+}
+else if(guess < 1){
+  alert("please enter a number more than 1-");
+}
+else if(guess > 100){
+  alert("please enter a number less than 100 ");
+}
+else{
+  preguess.push(guess)
+  if(Nuguess === 11){
+    displayGuess(guess)
+    displayMessage(`Game over, Random number was ${randomNu}`)
+    endGame()
+  }
+  else{
+    displayGuess(guess)
+    checkGuess(guess)
+  }
+}
+}
+function checkGuess(guess){
+if(guess === randomNu){
+  displayMessage(`you guessted right`)
+}else if(guess < randomNu){
+displayMessage(`Number is tooo low`)
+}
+else if(guess > randomNu){
+displayMessage(`Number is tooo high`)
+}
+}
+function displayGuess(guess){
+userInput.value = ''
+guessSlot.innerHTML +=`${guess},   `
+Nuguess++;
+remaining.innerHTML = `${11-Nuguess} `
+}
+
+function displayMessage(message){
+lowOrhigh.innerHTML = `<h2>${message}</h2>`
+}
+function NewGame(){
+const newGameButton = document.querySelector('#newGame')
+newGameButton.addEventListener('click', function(e){
+  randomNu = (parseInt(Math.random()*10+1));
+  preguess = []
+  Nuguess = 1
+  guessSlot = ''
+  remaining.innerHTML = `${11-Nuguess}`;
+  userInput.removeAttribute('disabled')
+  startOver.removeChild(p)
+    playGame = true;
+});
+}
+
+function endGame(){
+userInput.value = ''
+userInput.setAttribute('disabled','')
+p.classList.add('button')
+p.innerHTML = `<h2 id="newgame"> start new game </h2>`
+startOver.appendChild(p)
+playGame = false
+NewGame();
+}
+```
